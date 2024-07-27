@@ -15,6 +15,9 @@ public class Unit : MonoBehaviour
     public int currentHP;
 
     public int expOnDeath;
+    public int repOnDeath;
+
+    public ReputationGroup.RepGroups giveRepGroup;
 
     public bool TakeDamage(int dmg)
     {

@@ -15,15 +15,15 @@ public class ReputationGroup : MonoBehaviour
     [SerializeField] private RepGroups repGroups;
     [SerializeField] private int startingRep;
 
-    public int Reputation { get; set; }
+    public int Reputation;
+
+    void Start()
+    {
+        Reputation = startingRep;
+    }
 
     public RepGroups GetRepGroups()
     {
         return repGroups;
-    }
-
-    private void Awake()
-    {
-        Reputation = startingRep;
     }
 }

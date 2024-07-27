@@ -57,6 +57,8 @@ MonoBehaviour:
   MaxHP: 6
   currentHP: 6
   expOnDeath: 100
+  repOnDeath: 1
+  inGroup: 0
 --- !u!1 &8399010013951098542
 GameObject:
   m_ObjectHideFlags: 0

@@ -133,3 +133,5 @@ MonoBehaviour:
   MaxHP: 5
   currentHP: 5
   expOnDeath: 50
+  repOnDeath: 1
+  inGroup: 0

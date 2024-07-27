@@ -43,8 +43,13 @@ public class PlayerController : MonoBehaviour
                 tarPos.x += input.x;
                 tarPos.y += input.y;
 
-                if(isWalkable(tarPos))
+                if (isWalkable(tarPos))
+                {
                     StartCoroutine(Move(tarPos));
+                } else
+                {
+                    CheckGate();
+                }
             }
         }
         animator.SetBool("isMoving", isMoving);
@@ -85,11 +90,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CheckGate()
+    {
+        var facingVec = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var InteractPos = transform.position + facingVec;
+        var collider = Physics2D.OverlapCircle(InteractPos, 0.2f, solidObjectLayer);
+
+        if (collider != null)
+        {
+            if (collider.gameObject.tag == "Gate")
+            {
+                Debug.Log("Gate found");
+                collider.GetComponent<ReputationGate>().CheckGate();
+            }
+        }
+    }
+
     private void CheckForEncounters()
     {
         if(Physics2D.OverlapCircle(transform.position, 0.1f, battleLayer) != null)
         {
-            if(Random.Range(1, 100) < 25)
+            if(Random.Range(1, 100) < 10)
             {
                 Debug.Log("Battle has started");
                 battleSystem.SetActive(true);

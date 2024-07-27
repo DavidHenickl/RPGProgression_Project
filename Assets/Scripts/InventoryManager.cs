@@ -44,6 +44,7 @@ public class InventoryManager : MonoBehaviour
             Time.timeScale = 0;
             InventoryMenu.SetActive(true);
             EquipmentMenu.SetActive(false);
+            //ShowItems();
         }
     }
     void Equipment()
@@ -59,13 +60,14 @@ public class InventoryManager : MonoBehaviour
             Time.timeScale = 0;
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(true);
+            //ShowEquipment();
         }
     }
 
     public bool UseItem(string itemName)
     {
-        for (int i = 0; i < itemSlot.Length; i++) 
-        { 
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
             if (itemSOs[i].itemName == itemName)
             {
                 bool usable = itemSOs[i].UseItem();
@@ -73,6 +75,31 @@ public class InventoryManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public bool DeleteItem(string itemName)
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (itemSlot[i].itemName == itemName)
+            {
+                itemSlot[i].DeleteItem();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int CheckItemAmount(string itemName)
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (itemSlot[i].itemName == itemName)
+            {
+                return itemSlot[i].quantity;
+            }
+        }
+        return 0;
     }
 
     public int AddItem(string ItemName, int quanity, Sprite itemSprite, string itemDescription, ItemType itemType)
@@ -126,6 +153,21 @@ public class InventoryManager : MonoBehaviour
         {
             equippedSlots[i].selectedShader.SetActive(false);
             equippedSlots[i].thisItemSelected = false;
+        }
+    }
+
+    public void ShowItems()
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            itemSlot[i].ShowItem();
+        }
+    }
+    public void ShowEquipment()
+    {
+        for (int i = 0; i < equipmentSlot.Length; i++)
+        {
+            equipmentSlot[i].ShowItem();
         }
     }
 }

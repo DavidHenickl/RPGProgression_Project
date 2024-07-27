@@ -22,23 +22,44 @@ public class ItemSO : ScriptableObject
         }
         if (statToChange == StatToChange.mana)
         {
-            
+            return true;
         }
         if (statToChange == StatToChange.stamina)
         {
-            //GameObject.Find("HealthManager").GetComponent<Playerhealth>;
+            return true;
         }
         if (attributesToChange == AttributesToChange.health)
         {
-            //GameObject.Find("HealthManager").GetComponent<Playerhealth>;
+            GameObject.Find("Player").GetComponent<PlayerManager>().IncreaseHealth(amountToChangeAttribute);
+            return true;
         }
-        if (attributesToChange == AttributesToChange.mana)
+        if (attributesToChange == AttributesToChange.attack)
         {
-            //GameObject.Find("HealthManager").GetComponent<Playerhealth>;
+            PlayerStats PS = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+            PS.attack += amountToChangeAttribute;
+            PS.UpdateEquipment();
+            return true;
         }
-        if (attributesToChange == AttributesToChange.stamina)
+        if (attributesToChange == AttributesToChange.defense)
         {
-            //GameObject.Find("HealthManager").GetComponent<Playerhealth>;
+            PlayerStats PS = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+            PS.defense += amountToChangeAttribute;
+            PS.UpdateEquipment();
+            return true;
+        }
+        if (attributesToChange == AttributesToChange.agility)
+        {
+            PlayerStats PS = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+            PS.agility += amountToChangeAttribute;
+            PS.UpdateEquipment();
+            return true;
+        }
+        if (attributesToChange == AttributesToChange.intelligence)
+        {
+            PlayerStats PS = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+            PS.intelligence += amountToChangeAttribute;
+            PS.UpdateEquipment();
+            return true;
         }
         return false;
     }
@@ -54,7 +75,9 @@ public class ItemSO : ScriptableObject
     {
         None,
         health,
-        mana,
-        stamina
+        attack,
+        defense,
+        agility,
+        intelligence
     };
 }

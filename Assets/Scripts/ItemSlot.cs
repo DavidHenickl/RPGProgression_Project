@@ -99,6 +99,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     }
 
+    public void ShowItem()
+    {
+        if (itemImage.sprite != emptySprite)
+        {
+            itemImage.sprite = itemSprite;
+        }
+    }
+
     public void EmptySlot()
     {
         //quantityText.enabled = false;
@@ -108,6 +116,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemDescriptionNameText.text = "";
         itemDescriptionText.text = "";
         itemDescriptionImage.sprite = emptySprite;
+    }
+
+    public void DeleteItem()
+    {
+        this.quantity -= 1;
+        quantityText.text = this.quantity.ToString();
+        if (this.quantity <= 0)
+        {
+            EmptySlot();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData) 

@@ -20,8 +20,10 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject battleCanvas;
 
+    public PlayerStats playerStats;
+
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
@@ -59,11 +61,12 @@ public class BattleSystem : MonoBehaviour
         GameObject player = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = player.GetComponent<PlayerUnit>();
 
-        GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemy = Instantiate(enemyPrefab[UnityEngine.Random.Range(0, enemyPrefab.Length)], enemyBattleStation);
         enemyUnit = enemy.GetComponent<Unit>();
 
-        dialogText.text = "A wild " + enemyUnit.unitName + "comes closer";
+        dialogText.text = "A wild " + enemyUnit.unitName + " comes closer";
 
+        playerUnit.Refresh();
         playerHUD.SetHUDPlayer(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
@@ -75,10 +78,19 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        bool isDead = false;
+        if (playerStats.intelligence >= UnityEngine.Random.Range(1, 100))
+        {
+            isDead = enemyUnit.TakeDamage(playerUnit.damage * 2);
+            dialogText.text = "Critical Hit!";
+        } else
+        {
+            isDead = enemyUnit.TakeDamage(playerUnit.damage);
+            dialogText.text = "Hit!";
+        }
+        
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogText.text = "Hit!";
 
         yield return new WaitForSeconds(2f);
 
@@ -100,7 +112,15 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+        bool isDead = false;
+
+        if (playerStats.agility >= UnityEngine.Random.Range(1, 50)) 
+        {
+            dialogText.text = "You doge the attack";
+        } else
+        {
+            isDead = playerUnit.TakeDamage(CalcDamage(enemyUnit.damage));
+        }
 
         playerHUD.SetHP(playerUnit.currentHP);
 
@@ -125,6 +145,8 @@ public class BattleSystem : MonoBehaviour
             dialogText.text = "You are victorious!";
             ExperianceManager experianceManager = GameObject.Find("StatManager").GetComponent<ExperianceManager>();
             experianceManager.AddExp(enemyUnit.expOnDeath);
+            ReputationManager reputationManager = GameObject.Find("StatManager").GetComponent<ReputationManager>();
+            reputationManager.AddRep(enemyUnit.giveRepGroup.ToString(), enemyUnit.repOnDeath);
         } else if (battleState == BattleState.lost)
         {
             dialogText.text = "You were defeated...";
@@ -145,6 +167,17 @@ public class BattleSystem : MonoBehaviour
             return;
 
         StartCoroutine(PlayerAttack());
+    }
+
+    private int CalcDamage(int raw)
+    {
+        int dmg = (raw - ((playerStats.defense - 1) / 2));
+
+        if(dmg <= 0)
+        {
+            return 1;
+        }
+        return dmg;
     }
 
 

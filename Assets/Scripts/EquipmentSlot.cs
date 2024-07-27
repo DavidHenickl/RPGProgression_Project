@@ -125,4 +125,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
             OnRightClick();
         }
     }
+
+    public void ShowItem()
+    {
+        if (itemImage.sprite != emptySprite)
+        {
+            itemImage.sprite = itemSprite;
+        }
+    }
 }

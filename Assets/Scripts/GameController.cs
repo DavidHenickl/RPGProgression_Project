@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Dialog, Battle }
+public enum GameState { FreeRoam, Dialog, Battle, GameOver }
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
     [SerializeField] BattleSystem battleSystem;
+    [SerializeField] PlayerManager playerManager;
 
     GameState state;
 
@@ -31,6 +32,10 @@ public class GameController : MonoBehaviour
         battleSystem.OnLeaveBattle += () => 
         {
             state = GameState.FreeRoam;
+        };
+        playerManager.OnGameOver += () =>
+        {
+            state = GameState.GameOver;
         };
 
     }

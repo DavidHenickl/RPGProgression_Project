@@ -27,6 +27,17 @@ public class PlayerUnit : MonoBehaviour
         currentHP = playerManager.health;
     }
 
+    public void Refresh()
+    {
+        PlayerStats playerStats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+        playerManager = GameObject.Find("hero").GetComponent<PlayerManager>();
+
+        damage = playerStats.attack;
+        unitLevel = GameObject.Find("StatManager").GetComponent<ExperianceManager>().level;
+        MaxHP = playerManager.maxHealth;
+        currentHP = playerManager.health;
+    }
+
     public void UpdateHealth()
     {
         playerManager.health = currentHP;

@@ -42,4 +42,13 @@ public class ExperianceManager : MonoBehaviour
             LevelUp();
         }
     }
+
+    public void RemoveExp(int newExp)
+    {
+        experiance -= newExp;
+        if (experiance <= 0)
+        {
+            experiance = 0;
+        }
+    }
 }
