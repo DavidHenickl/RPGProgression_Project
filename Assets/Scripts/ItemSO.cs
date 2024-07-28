@@ -17,7 +17,7 @@ public class ItemSO : ScriptableObject
     {
         if (statToChange == StatToChange.health)
         {
-            GameObject.Find("Player").GetComponent<PlayerManager>().HealDamage(amountToChangeStat);
+            GameObject.Find("hero").GetComponent<PlayerManager>().HealDamage(amountToChangeStat);
             return true;
         }
         if (statToChange == StatToChange.mana)
