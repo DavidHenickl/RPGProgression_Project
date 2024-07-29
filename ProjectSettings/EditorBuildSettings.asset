@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelScene.unity
     guid: 21964b8ddb3dddf4293d32502cf9f780
+  - enabled: 1
+    path: Assets/Scenes/NegativeScene.unity
+    guid: 7025d57a77ea0d444a20a46684790ca5
   m_configObjects: {}

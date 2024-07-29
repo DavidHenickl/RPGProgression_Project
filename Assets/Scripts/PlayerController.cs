@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask solidObjectLayer;
     public LayerMask interactablesLayer;
     public LayerMask battleLayer;
+    public LayerMask bossLayer;
     public LayerMask ItemLayer;
 
     private bool isMoving;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     [SerializeField] GameObject battleSystem;
+    [SerializeField] GameObject BossSystem;
 
     private void Awake()
     {
@@ -115,6 +117,15 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Battle has started");
                 battleSystem.SetActive(true);
                 battleSystem.GetComponent<BattleSystem>().StartBattle();
+            }
+        }
+        if (Physics2D.OverlapCircle(transform.position, 0.1f, bossLayer) != null)
+        {
+            if (Random.Range(1, 10) < 10)
+            {
+                Debug.Log("Boss Battle has started");
+                BossSystem.SetActive(true);
+                BossSystem.GetComponent<BattleSystem>().StartBattle();
             }
         }
     }
