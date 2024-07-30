@@ -46,6 +46,7 @@ public class PlayerUnit : MonoBehaviour
 
     public bool TakeDamage(int dmg)
     {
+        dmg -= GameObject.Find("StatManager").GetComponent<PlayerStats>().defense / 4;
         currentHP -= dmg;
         playerManager.TakeDamage(dmg);
         UpdateHealth();

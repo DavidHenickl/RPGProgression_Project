@@ -53,7 +53,7 @@ MonoBehaviour:
   unitName: Mole
   unitLevel: 1
   unitSprite: {fileID: 21300000, guid: 35dcd42483f8a7541a1848770ebc6f6d, type: 3}
-  damage: 1
+  damage: 2
   MaxHP: 5
   currentHP: 5
   expOnDeath: -50
