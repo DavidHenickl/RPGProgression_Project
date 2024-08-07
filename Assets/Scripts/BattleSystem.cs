@@ -11,7 +11,8 @@ public enum BattleState
     playerTurn,
     enemyTurn,
     won,
-    lost
+    lost,
+    flee
 };
 
 public class BattleSystem : MonoBehaviour
@@ -150,6 +151,9 @@ public class BattleSystem : MonoBehaviour
         } else if (battleState == BattleState.lost)
         {
             dialogText.text = "You were defeated...";
+        } else if (battleState == BattleState.flee)
+        {
+            dialogText.text = "You got away!";
         }
         OnLeaveBattle?.Invoke();
         battleCanvas.SetActive(false);
@@ -167,6 +171,16 @@ public class BattleSystem : MonoBehaviour
             return;
 
         StartCoroutine(PlayerAttack());
+    }
+
+    public void OnFleeButton()
+    {
+        if (battleState != BattleState.playerTurn)
+            return;
+
+        battleState = BattleState.flee;
+
+        EndBattle();
     }
 
     private int CalcDamage(int raw)
