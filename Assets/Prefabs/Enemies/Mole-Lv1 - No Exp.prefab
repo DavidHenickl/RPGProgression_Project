@@ -56,7 +56,7 @@ MonoBehaviour:
   damage: 2
   MaxHP: 5
   currentHP: 5
-  expOnDeath: -50
+  expOnDeath: 0
   repOnDeath: 1
   giveRepGroup: 0
 --- !u!1 &8399010013951098542
