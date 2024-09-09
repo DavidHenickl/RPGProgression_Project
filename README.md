@@ -1,10 +1,15 @@
 How to Play:
 
 WASD:   Movement
+
 E:      Interact
+
 U:      Equipment
+
 I:      Inventory
+
 Space:  Move Dialogue
+
 
 Each level starts next to 2 NPCs that explain the mechanics to the Player
 Press Interact to talk with them
