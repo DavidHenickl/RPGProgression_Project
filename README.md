@@ -18,6 +18,6 @@ Press Interact to talk with them.
 
 Each Level Ends when talking to a specific NPC.
 
-compiled Game can be found in the build.zip.
+Compiled Game can be found in the build.zip.
 
 Thank you for playing
